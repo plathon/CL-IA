@@ -1,0 +1,26 @@
+{
+    "overview": "You are coding a todo app with nextjs and tailwind the backend part of project should be mocked inside frontend",
+    "explain": [
+        {
+            "folder": "./path/to/directory",
+            "explanation": ""
+        }
+    ],
+    "commands": [
+        {
+            "name": "crud",
+            "args": ["name"],
+            "templates": [{
+                "template": "[name]-controller.ts",
+                "outDir": "./src/controllers"
+            },
+            {
+                "template": "[name]-view.ts",
+                "outDir": "./src/views"
+            }],
+            "hooks": []
+        }
+    ],
+    "extensions": [".ts"],
+    "includes": ["./src/bin", "./src/types"]
+}
