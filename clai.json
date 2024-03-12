@@ -2,8 +2,8 @@
     "overview": "You are coding a todo app with nextjs and tailwind the backend part of project should be mocked inside frontend",
     "explain": [
         {
-            "folder": "./path/to/directory",
-            "explanation": ""
+            "folder": "./src/bin",
+            "explanation": "contains the source code of the commands"
         }
     ],
     "commands": [
@@ -22,5 +22,5 @@
         }
     ],
     "extensions": [".ts"],
-    "includes": ["./src/bin", "./src/types"]
+    "includes": ["./src/bin", "./src/schemas"]
 }
