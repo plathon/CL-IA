@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 const templates = z.array(z.object({
   template: z.string(),
-  outDir: z.string()
+  outFile: z.string()
 }).optional())
 
 const explanation = z.object({
@@ -18,8 +18,8 @@ export const claiConfig = z.object({
       name: z.string(),
       args: z.array(z.string().optional()),
       templates,
-      hooks: z.array(z.string().optional())
-    })
+      instructions: z.array(z.string().optional())
+    }).optional()
   ),
   extensions: z.array(z.string()),
   includes: z.array(z.string())

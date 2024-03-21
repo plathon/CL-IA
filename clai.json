@@ -8,17 +8,17 @@
     ],
     "commands": [
         {
-            "name": "crud",
+            "name": "example",
             "args": ["name"],
             "templates": [{
-                "template": "[name]-controller.ts",
-                "outDir": "./src/controllers"
+                "template": "{{name}}-controller.ts",
+                "outFile": "./src/controllers/{{name}}-controller.ts"
             },
             {
-                "template": "[name]-view.ts",
-                "outDir": "./src/views"
+                "template": "{{name}}-view.ts",
+                "outFile": "./src/views/{{name}}-view.ts"
             }],
-            "hooks": []
+            "instructions": ["you should import the state lib from react package inside every page"]
         }
     ],
     "extensions": [".ts"],
