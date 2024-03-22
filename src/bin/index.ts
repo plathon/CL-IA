@@ -39,49 +39,39 @@ program
 
       const code = readFilesRecursively(directoriesPath, fileExtensions)
 
-      console.log(
-        [
+      const loadingChatApiCall = loading()
+
+      const result = await openai.chat.completions.create({
+        messages: [
           { role: 'system', content: commandPrompt.head },
           { role: 'system', content: `files of the project: ${JSON.stringify(code)}` },
           { role: 'system', content: `directories of the project: ${JSON.stringify(safeConfigData.explain)}` },
           { role: 'system', content: commandPrompt.body },
           { role: 'system', content: safeConfigData.overview },
           { role: 'user', content: str }
-        ]
-      )
-      // const loadingChatApiCall = loading()
+        ],
+        model: 'gpt-4-turbo-preview',
+        response_format: { type: 'json_object' },
+        temperature: 0.1
+      })
 
-      // const result = await openai.chat.completions.create({
-      //   messages: [
-      //     { role: 'system', content: commandPrompt.head },
-      //     { role: 'system', content: `files of the project: ${JSON.stringify(code)}` },
-      //     { role: 'system', content: `directories of the project: ${JSON.stringify(safeConfigData.explain)}` },
-      //     { role: 'system', content: commandPrompt.body },
-      //     { role: 'system', content: safeConfigData.overview },
-      //     { role: 'user', content: str }
-      //   ],
-      //   model: 'gpt-4-turbo-preview',
-      //   response_format: { type: 'json_object' },
-      //   temperature: 0.1
-      // })
+      stopLoading(loadingChatApiCall)
+      const resultContentString = result.choices[0].message.content ?? ''
+      const resultContent: z.infer<typeof resultSchema> = JSON.parse(resultContentString)
 
-      // stopLoading(loadingChatApiCall)
-      // const resultContentString = result.choices[0].message.content ?? ''
-      // const resultContent: z.infer<typeof resultSchema> = JSON.parse(resultContentString)
+      console.log('Plain ➜')
+      resultContent.result.forEach(function (item, index) {
+        console.log(`File: ${++index}`)
+        console.log('path: ', item.path)
+        console.log('explanation: ', item.explanation)
+      })
 
-      // console.log('Plain ➜')
-      // resultContent.result.forEach(function (item, index) {
-      //   console.log(`File: ${++index}`)
-      //   console.log('path: ', item.path)
-      //   console.log('explanation: ', item.explanation)
-      // })
-
-      // const answer = await confirm({ message: 'would you like to create this files?' })
-      // if (answer) {
-      //   resultContent.result.forEach(async function (item) {
-      //     await asyncFs.writeFile(item.path, item.content)
-      //   })
-      // }
+      const answer = await confirm({ message: 'would you like to create this files?' })
+      if (answer) {
+        resultContent.result.forEach(async function (item) {
+          await asyncFs.writeFile(item.path, item.content)
+        })
+      }
     } catch (err) {
       console.log('err -> ', err)
       exit(1)
