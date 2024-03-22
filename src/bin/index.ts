@@ -117,7 +117,7 @@ program
           { role: 'system', content: `instructions: ${JSON.stringify(command.instructions)}` },
           { role: 'system', content: execPrompt.body },
           { role: 'system', content: `More context about the big picture of the app that you are building: ${safeConfigData.overview}` },
-          { role: 'user', content: 'Create the necessary files based on provided templates. Each template represents a file to be generated, containing code relevant to the functionality of the app. Ensure that the variables within the templates are replaced with the corresponding values provided in a dictionary.' }
+          { role: 'user', content: 'Create the necessary files based on provided templates. Each template represents a file to be generated, containing code relevant to the functionality of the app. Ensure that the variables eg: "{{variable}}" within the templates are replaced with the corresponding values provided in a dictionary.' }
         ],
         model: 'gpt-4-turbo-preview',
         response_format: { type: 'json_object' },
@@ -127,7 +127,6 @@ program
       stopLoading(loadingChatApiCall)
       const resultContentString = result.choices[0].message.content ?? ''
       const resultContent: z.infer<typeof resultSchema> = JSON.parse(resultContentString)
-      console.log('🚀 ~ .action ~ resultContent:', resultContent)
 
       console.log('Plain ➜')
       resultContent.result.forEach(function (item, index) {
