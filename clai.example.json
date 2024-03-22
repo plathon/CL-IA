@@ -18,7 +18,7 @@
                 "template": "{{name}}-view.ts",
                 "outFile": "./src/views/{{name}}-view.ts"
             }],
-            "instructions": ["you should import the state lib from react package inside every page"]
+            "instructions": []
         }
     ],
     "extensions": [".ts"],
