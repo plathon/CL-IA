@@ -1,7 +1,11 @@
 {
-  "name": "cl-ai",
+  "name": "@plathon/cl-ai",
   "version": "1.0.0",
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plathon/CL-IA.git"
+  },
   "main": "./dist/bin/index.js",
   "bin": {
     "cl-ai": "./dist/bin/index.js"
