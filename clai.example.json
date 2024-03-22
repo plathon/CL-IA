@@ -1,5 +1,5 @@
 {
-    "overview": "You are coding a todo app with nextjs and tailwind the backend part of project should be mocked inside frontend",
+    "overview": "",
     "explain": [
         {
             "folder": "./src/bin",
